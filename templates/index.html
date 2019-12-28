@@ -1,7 +1,38 @@
 <!-- index.html -->
 {% extends "base.html" %}
+{% load static %}
 {% block title %}來一客產銷系統{% endblock %}
 {% block content %}
 <div class='container' align=center>
+	<img src="{% static "images/homepage.jpg " %}">
+	<hr color="#00d3a1">	
+		<b><font color="#008080" size="5pt">系列產品</font></b>
+	<hr style="border:0.5px solid #00d3a1;" />
+	<div class='row'>
+		<div class='col-md-2'>
+			<img src="{% static "images/p1.jpg " %}">
+			<p><font color="#008080" size="2">牛肉蔬菜風味</font></p>
+		</div>
+		<div class='col-md-2'>
+			<img src="{% static "images/p2.jpg " %}">
+			<p><font color="#008080" size="2">川辣牛肉風味</font>
+		</div>
+		<div class='col-md-2'>
+			<img src="{% static "images/p3.jpg " %}">
+			<p><font color="#008080" size="2">肉燥菠菜風味</font>
+		</div>
+		<div class='col-md-2'>
+			<img src="{% static "images/p4.jpg " %}">
+			<p><font color="#008080" size="2">京燉肉骨風味</font>
+		</div>
+		<div class='col-md-2'>
+			<img src="{% static "images/p5.jpg " %}">
+			<p><font color="#008080" size="2">韓式泡菜風味</font>
+		</div>
+		<div class='col-md-2'>
+			<img src="{% static "images/p6.jpg " %}">
+			<p><font color="#008080" size="2">鮮蝦魚板風味</font>
+		</div>
+	</div>
 </div>
 {% endblock %}

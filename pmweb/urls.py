@@ -19,5 +19,11 @@ from django.conf.urls import include, url
 from mainsite import views
 urlpatterns = [
     url(r'^$', views.index),
+    path('market/', views.market),
+    path('product/', views.product),
+    path('product/stock/', views.stock),
+    path('product/mps', views.mps),
+    path('product/mps/<int:id>', views.mpsSearch),
+    path('product/mps/mrp/<int:id>', views.mrp),
     path('admin/', admin.site.urls),
 ]

@@ -1,0 +1,118 @@
+<!-- mpsSearch.html -->
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ product.name }} - MPS{% endblock %}
+{% block content %}
+<div class='container'>
+	<div class='row'>
+		<div class='col-md-6'>
+			<a href='/product/mps'>上一步</a>
+		</div>
+		<div class='col-md-6' align=right>
+		{% if mps_list is not None %}
+			<a href='/product/mps/mrp/{{ product.id }}'>下一步:MRP (記得儲存!)</a>
+		{% endif %}
+		</div>
+	</div>
+	<div class='row'>
+		<div class='col-md-6'>
+			<b><font color="#008080" size="5pt">{{ product.name }} - MPS(主生產排程)</font></b>
+			<hr style="border:2px solid #00d3a1;background-color:#66CDAA" />
+			<style>
+			#number {
+				width: 5em;
+			}
+			</style>
+			<form name='mform' action='/product/mps/{{ product.id }}' method='get'>
+			<table>
+				<tr><td>期初存貨:</td> <td>{{ product.stock }}</td></tr>
+				<tr><td>本月週需求預測</td> <td><input id='number' type="number" step="1" name='need1' /></td>
+					<td>次月週需求預測</td> <td><input id='number' type="number" step="1" name='need2' /></td></tr>
+				<tr><td>週期</td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+				<tr><td>已承諾訂單:</td> <td><input id='number' type="number" step="1" name='order1' /></td>
+				<td><input id='number' type="number" step="1" name='order2' /></td>
+				<td><input id='number' type="number" step="1" name='order3' /></td>
+				<td><input id='number' type="number" step="1" name='order4' /></td></tr>
+			</table>
+			<br>
+			<input type='submit' value='計算'>
+			<input type='reset' value='清除'>
+			</form>
+			<br>
+			{% for n in need_list %}
+			{% if forloop.first %}
+			<table>
+				<tr bgcolor='#ffffff'>
+					<td width=160 align=right>{{ product.stock }}</td>
+					<td width=50>1</td>
+					<td width=50>2</td>
+					<td width=50>3</td>
+					<td width=50>4</td>
+					<td width=50>5</td>
+					<td width=50>6</td>
+					<td width=50>7</td>
+					<td width=50>8</td>
+				</tr>
+				<tr><td>預測</td>
+			{% endif %}
+					<td>{{ n }}</td>
+			{% if forloop.last %}
+				</tr>
+				<tr><td>承諾訂單</td>
+			{% endif %}
+			{% empty %}
+			{% endfor %}
+			{% for o in order_list %}
+					<td>{{ o | default:" "}}</td>
+			{% if forloop.last %}
+				</tr>
+				<tr><td>預計現有庫存量</td>
+			{% endif %}
+			{% empty %}
+			{% endfor %}
+			{% for now in now_stock_list %}
+					<td>{{ now }}</td>
+			{% if forloop.last %}
+				</tr>
+				<tr><td>MPS</td>
+			{% endif %}
+			{% empty %}
+			{% endfor %}
+			{% for m in mps_list %}
+					<td>{{ m | default:" "}}</td>
+			{% if forloop.last %}
+				</tr>
+			</table>
+			{% endif %}
+			{% empty %}
+			{% endfor %}
+			
+		</div>
+		<div class='col-md-6'>
+			<b><font color="#008080" size="5pt">MRP(物料需求規劃)</font></b>
+			<hr style="border:2px solid #00d3a1;background-color:#66CDAA" />
+			<font color="#008080" size="5pt">BOM(物料清單)</font>
+			<hr style="border:1px solid #00d3a1;background-color:#66CDAA" />
+			<table>
+				<tr bgcolor='#ccffcc'><td width=150 align=center>泡麵</td>
+					<td width=100>半成品名稱</td>
+					<td width=50>所需數量</td>
+					<td width=100>原料名稱</td>
+					<td width=50>所需數量</td>
+				</tr>
+				<tr><td>{{ product.name }}</td><td>調味包</td><td>1</td><td>脫水蔬菜</td><td>0.015(kg)</td></tr>
+				<tr><td></td><td></td><td></td><td>調味粉料</td><td>0.003(kg)</td></tr>
+				<tr><td></td><td></td><td></td><td>塑膠包裝</td><td>1</td></tr>
+				<tr><td></td><td>油包</td><td>1</td><td>油</td><td>0.005(kg)</td></tr>
+				<tr><td></td><td></td><td></td><td>塑膠包裝</td><td>1</td></tr>
+				<tr><td></td><td>麵體</td><td>1</td><td>麵粉</td><td>0.04(kg)</td></tr>
+				<tr><td></td><td></td><td></td><td>食鹽</td><td>0.003(kg)</td></tr>
+				<tr><td></td><td>紙碗</td><td>1</td><td>半成品紙碗</td><td>1</td></tr>
+				<tr><td></td><td></td><td></td><td>塑膠封膜</td><td>1</td></tr>
+			</table>
+
+		</div>
+	</div>
+</div>
+
+{% endblock %}
