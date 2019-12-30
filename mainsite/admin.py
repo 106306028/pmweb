@@ -2,16 +2,16 @@ from django.contrib import admin
 from mainsite import models
 # Register your models here.
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'last_date')
+    list_display = ('name', 'last_date', 'gender', 'age', 'email', 'tel')
     search_fields = ('name',)
     ordering = ('id',)
     
 class Order_listAdmin(admin.ModelAdmin):
     list_display = ('id', 'customer', 'date', 'amount')
-    ordering = ('id',)
+    ordering = ('-date',)
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'price', 'stock')
+    list_display = ('id', 'name', 'price', 'stock', 'TL')
     search_fields = ('name',)
     ordering = ('id',)
     
@@ -21,12 +21,12 @@ class SupplierAdmin(admin.ModelAdmin):
     ordering = ('id',)
     
 class IngredientAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'cost', 'stock', 'safe_stock', 'last_date', 'EOQ', 'supplier')
+    list_display = ('id', 'name', 'cost', 'stock', 'safe_stock', 'last_date', 'EOQ', 'supplier', 'TL')
     search_fields = ('name',)
     ordering = ('id',)
     
 class IntermediateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'stock', 'safe_stock')
+    list_display = ('id', 'name', 'stock', 'safe_stock', 'TL')
     search_fields = ('name',)
     ordering = ('id',)
     

@@ -10,7 +10,7 @@
 		</div>
 		<div class='col-md-6' align=right>
 		{% if mps_list is not None %}
-			<a href='/product/mps/mrp/{{ product.id }}'>下一步:MRP (記得儲存!)</a>
+			<a href='/product/mps/mrp/{{ product.id }}'>下一步:MRP </a>
 		{% endif %}
 		</div>
 	</div>
@@ -87,30 +87,6 @@
 			{% empty %}
 			{% endfor %}
 			
-		</div>
-		<div class='col-md-6'>
-			<b><font color="#008080" size="5pt">MRP(物料需求規劃)</font></b>
-			<hr style="border:2px solid #00d3a1;background-color:#66CDAA" />
-			<font color="#008080" size="5pt">BOM(物料清單)</font>
-			<hr style="border:1px solid #00d3a1;background-color:#66CDAA" />
-			<table>
-				<tr bgcolor='#ccffcc'><td width=150 align=center>泡麵</td>
-					<td width=100>半成品名稱</td>
-					<td width=50>所需數量</td>
-					<td width=100>原料名稱</td>
-					<td width=50>所需數量</td>
-				</tr>
-				<tr><td>{{ product.name }}</td><td>調味包</td><td>1</td><td>脫水蔬菜</td><td>0.015(kg)</td></tr>
-				<tr><td></td><td></td><td></td><td>調味粉料</td><td>0.003(kg)</td></tr>
-				<tr><td></td><td></td><td></td><td>塑膠包裝</td><td>1</td></tr>
-				<tr><td></td><td>油包</td><td>1</td><td>油</td><td>0.005(kg)</td></tr>
-				<tr><td></td><td></td><td></td><td>塑膠包裝</td><td>1</td></tr>
-				<tr><td></td><td>麵體</td><td>1</td><td>麵粉</td><td>0.04(kg)</td></tr>
-				<tr><td></td><td></td><td></td><td>食鹽</td><td>0.003(kg)</td></tr>
-				<tr><td></td><td>紙碗</td><td>1</td><td>半成品紙碗</td><td>1</td></tr>
-				<tr><td></td><td></td><td></td><td>塑膠封膜</td><td>1</td></tr>
-			</table>
-
 		</div>
 	</div>
 </div>
