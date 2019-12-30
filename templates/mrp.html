@@ -140,26 +140,15 @@
 		<div class='col-md-2'>
 			<b><font size="3" color='#008080'>半成品MRP:</font></b>
 		</div>
-		<div class='col-md-2'>
-		<form>
-			<select name="inter">
-			　<option value="{{ product.id }}">調味包</option>
-			　<option value="7">油包</option>
-			　<option value="8">麵體</option>
-			　<option value="9">紙碗</option>
-			</select>
-			<input type='submit' value='確認'/>
-		</form>
-		</div>
 	</div>
-	{% if inter_id is not None %}
+	{% for inter in inter_mrp_list %}
 	<div class='row'>
 		<div class='col-md-10'>
 			<div align=right>
 			<table>
 				<tr>
-					<td width=120>{{ intermediate.name }}</td><td width=180>毛需求</td><td width=50></td>
-					{% for m in mps_list2 %}
+					<td width=120>{{ inter.0 }}</td><td width=180>毛需求</td><td width=50></td>
+					{% for m in inter.1 %}
 						<td width=50>{{ m }}</td>
 					{% if forloop.last %}
 					</tr>
@@ -167,8 +156,8 @@
 					{% empty %}
 					{% endfor %}
 				<tr>
-					<td>前置時間=</td><td>預計存貨</td><td>{{ intermediate.stock }}</td>
-					{% for p in pre_stock2 %}
+					<td>前置時間=</td><td>預計存貨</td><td>{{ inter.2 }}</td>
+					{% for p in inter.3 %}
 						<td width=50>{{ p }}</td>
 					{% if forloop.last %}
 				</tr>
@@ -177,8 +166,8 @@
 					{% endfor %}
 			
 				<tr>
-					<td>{{ intermediate.TL }} 週</td><td>淨需求</td><td></td>
-					{% for n in need2 %}
+					<td>{{ inter.4 }} 週</td><td>淨需求</td><td></td>
+					{% for n in inter.5 %}
 						<td width=50>{{ n }}</td>
 					{% if forloop.last %}
 				</tr>
@@ -187,7 +176,7 @@
 					{% endfor %}
 				<tr>
 					<td></td><td>計畫訂單接收量</td><td></td>
-					{% for r in receive2 %}
+					{% for r in inter.6 %}
 						<td width=50>{{ r }}</td>
 					{% if forloop.last %}
 				</tr>
@@ -196,7 +185,7 @@
 					{% endfor %}
 				<tr>
 					<td></td><td>計畫訂單發出量</td><td></td>
-					{% for s in send2 %}
+					{% for s in inter.7 %}
 						<td width=50>{{ s }}</td>
 					{% if forloop.last %}
 					</tr>
@@ -207,79 +196,9 @@
 			</div>
 		</div>
 	</div>
-	<div class='row'>
-		<div class='col-md-2'>
-			<b><font size="3" color='#008080'>原料MRP:</font></b>
-		</div>
-		<div class='col-md-2'>
-		<form>
-			<select name="ingre">
-				{% for i in intermediate_elements %}
-				
-				<option value="{{ i.ingredient }}"></option>
-				{% endfor %}
-			</select>
-			<input type='submit' value='確認'/>
-		</form>
-		</div>
-	</div>
-	{% endif %}
-	{% if ingre_id is not None %}
-	<div class='row'>
-		<div class='col-md-10'>
-			<div align=right>
-			<table>
-				<tr>
-					<td width=120>{{ ingredient.name }}</td><td width=180>毛需求</td><td width=50></td>
-					{% for m in mps_list3 %}
-						<td width=50>{{ m }}</td>
-					{% if forloop.last %}
-					</tr>
-					{% endif %}
-					{% empty %}
-					{% endfor %}
-				<tr>
-					<td>前置時間=</td><td>預計存貨</td><td>{{ ingredient.stock }}</td>
-					{% for p in pre_stock3 %}
-						<td width=50>{{ p }}</td>
-					{% if forloop.last %}
-				</tr>
-					{% endif %}
-					{% empty %}
-					{% endfor %}
-			
-				<tr>
-					<td>{{ ingredient.TL }} 週</td><td>淨需求</td><td></td>
-					{% for n in need3 %}
-						<td width=50>{{ n }}</td>
-					{% if forloop.last %}
-				</tr>
-					{% endif %}
-					{% empty %}
-					{% endfor %}
-				<tr>
-					<td></td><td>計畫訂單接收量</td><td></td>
-					{% for r in receive3 %}
-						<td width=50>{{ r }}</td>
-					{% if forloop.last %}
-				</tr>
-					{% endif %}
-					{% empty %}
-					{% endfor %}
-				<tr>
-					<td></td><td>計畫訂單發出量</td><td></td>
-					{% for s in send3 %}
-						<td width=50>{{ s }}</td>
-					{% if forloop.last %}
-					</tr>
-					{% endif %}
-					{% empty %}
-					{% endfor %}
-			</table>
-			</div>
-		</div>
-	</div>
-	{% endif %}
+	<br>
+	{% empty %}
+	{% endfor %}
 	<br>
 	<br>
 

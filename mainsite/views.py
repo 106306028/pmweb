@@ -132,10 +132,9 @@ def mrp(request, id):
             product = models.Product.objects.get(id=id)
             mps = models.MPS.objects.get(id=id)
             mps_list = mps.mpsStr.split(',')
-            product_element = models.Product_element.objects.filter(product__id=id)
-            print(product_element)
+            intermediate = models.Intermediate.objects.filter(product__id  = id)
             stock = product.stock
-            pre_stock, need, receive, send = mrpCalculate(product.stock, mps_list, product.TL, 1)
+            pre_stock, need, receive, send = mrpCalculate(stock, mps_list, product.TL, 1)
             mrp_str = ''
             for index, x in enumerate(send):
                 if index == 7:
@@ -150,63 +149,35 @@ def mrp(request, id):
                 models.Product_MRP.objects.update(id=id, mrpStr=mrp_str)
             else:
                 models.Product_MRP.objects.create(id=id, mrpStr=mrp_str)
-    except:
-        pass
-    try:
-        inter_id = request.GET.get('inter')
-        if inter_id:
-            intermediate = models.Intermediate.objects.get(id=inter_id)
-            ingre_list = []
-            mrp = models.Product_MRP.objects.get(id=product.id)
-            mps_list2 = mrp.mrpStr.split(',')
-            pre_stock2, need2, receive2, send2 = mrpCalculate(intermediate.stock, mps_list2, intermediate.TL, 1)
-            mrp_str2 = ''
-            for index, x in enumerate(send2):
-                if index == 7:
-                    mrp_str2 += str(x)
+            
+            inter_mrp_list=[]
+            for i in intermediate:
+                mrp = models.Product_MRP.objects.get(id=id)
+                mrp_list = mrp.mrpStr.split(',')
+                element = models.Product_element.objects.get(product=product,intermediate__id =i.id)
+                stock2 = i.stock
+                pre_stock2, need2, receive2, send2 = mrpCalculate(stock2, mrp_list, i.TL, element.quantity)
+                inter_mrp_list.append([i.name, mrp_list, i.stock, pre_stock2, i.TL, need2, receive2, send2])
+                mrp_str2 = ''
+                for index, x in enumerate(send2):
+                    if index == 7:
+                        mrp_str2 += str(x)
+                    else:
+                        mrp_str2 += str(x) + ','
+                try:
+                    data = models.inter_MRP.objects.get(id=i.id)
+                except:
+                    data = None
+                if data:
+                    data.delete()
+                    save = models.inter_MRP.objects.create(id=i.id, mrpStr=mrp_str2)
+                    save.save()
                 else:
-                    mrp_str2 += str(x) + ','
-            try:
-                data = models.inter_MRP.objects.get(id=inter_id)
-            except:
-                data = None
-            if data:
-                data.delete()
-                save = models.inter_MRP.objects.create(id=inter_id, mrpStr=mrp_str2)
-                save.save()
-            else:
-                save = models.inter_MRP.objects.create(id=inter_id, mrpStr=mrp_str2)
-                save.save()
+                    save = models.inter_MRP.objects.create(id=i.id, mrpStr=mrp_str2)
+                    save.save()
+                
     except:
         pass
-        
-    try:
-        ingre_id = request.GET.get('ingre')
-        if ingre_id:
-            ingredient = models.Ingredient.objects.get(id=ingre_id)
-            mrp = models.inter_MRP.objects.get(id=inter_id)
-            mps_list3 = mrp.mrpStr.split(',')
-            pre_stock3, need3, receive3, send3 = mrpCalculate(ingredient.stock, mps_list3, ingredient.TL, intermediate_elements.quantity)
-            mrp_str3 = ''
-            for index, x in enumerate(send3):
-                if index == 7:
-                    mrp_str3 += str(x)
-                else:
-                    mrp_str3 += str(x) + ','
-            try:
-                data = models.ingre_MRP.objects.get(id=ingre_id)
-            except:
-                data = None
-            if data:
-                data.delete()
-                save = models.inter_MRP.objects.create(id=inter_id, mrpStr=mrp_str2)
-                save.save()
-            else:
-                save = models.inter_MRP.objects.create(id=inter_id, mrpStr=mrp_str2)
-                save.save()
-    except:
-        pass
-    
         
     html = template.render(locals())
     return HttpResponse(html)

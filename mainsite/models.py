@@ -33,7 +33,7 @@ class Ingredient(models.Model):
     TL = models.IntegerField()
     
     def __str__(self):
-        return '%s. %s'%{self.id,self.name}
+        return '{0}.{1}'.format(self.id, self.name)
         
 class Intermediate(models.Model):
     name = models.CharField(max_length=10)
@@ -43,7 +43,7 @@ class Intermediate(models.Model):
     element = models.ManyToManyField(Ingredient, through='Intermediate_element')
     
     def __str__(self):
-        return '%s. %s'%{self.id,self.name}
+        return '{0}.{1}'.format(self.id, self.name)
 
 class Product(models.Model):
     name = models.CharField(max_length=10)
@@ -53,7 +53,7 @@ class Product(models.Model):
     element = models.ManyToManyField(Intermediate, through='Product_element')
     
     def __str__(self):
-        return '%s. %s'%{self.id,self.name}
+        return '{0}.{1}'.format(self.id, self.name)
         
 class Order_list(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)

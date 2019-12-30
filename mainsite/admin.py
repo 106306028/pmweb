@@ -46,6 +46,7 @@ class MPSAdmin(admin.ModelAdmin):
     list_display = ('id', 'mpsStr')
     ordering = ('id'),
     
+    
 admin.site.register(models.Customer, CustomerAdmin)
 admin.site.register(models.Order_list, Order_listAdmin)
 admin.site.register(models.Product, ProductAdmin)
@@ -56,3 +57,6 @@ admin.site.register(models.Intermediate_element, Intermediate_elementAdmin)
 admin.site.register(models.Product_element, Product_elementAdmin)
 admin.site.register(models.Order_list_detail, Order_list_detailAdmin)
 admin.site.register(models.MPS, MPSAdmin)
+admin.site.register(models.Product_MRP)
+admin.site.register(models.inter_MRP)
+admin.site.register(models.ingre_MRP)
