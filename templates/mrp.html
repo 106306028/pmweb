@@ -200,6 +200,69 @@
 	{% empty %}
 	{% endfor %}
 	<br>
+	<div class='row'>
+		<div class='col-md-2'>
+			<b><font size="3" color='#008080'>原料MRP:</font></b>
+		</div>
+	</div>
+	{% for ingre in ingre_mrp_list %}
+	<div class='row'>
+		<div class='col-md-10'>
+			<div align=right>
+			<table>
+				<tr>
+					<td width=120>{{ ingre.0 }}</td><td width=180>毛需求</td><td width=50></td>
+					{% for m in ingre.1 %}
+						<td width=50>{{ m }}</td>
+					{% if forloop.last %}
+					</tr>
+					{% endif %}
+					{% empty %}
+					{% endfor %}
+				<tr>
+					<td>前置時間=</td><td>預計存貨</td><td>{{ ingre.2 }}</td>
+					{% for p in ingre.3 %}
+						<td width=50>{{ p }}</td>
+					{% if forloop.last %}
+				</tr>
+					{% endif %}
+					{% empty %}
+					{% endfor %}
+			
+				<tr>
+					<td>{{ ingre.4 }} 週</td><td>淨需求</td><td></td>
+					{% for n in ingre.5 %}
+						<td width=50>{{ n }}</td>
+					{% if forloop.last %}
+				</tr>
+					{% endif %}
+					{% empty %}
+					{% endfor %}
+				<tr>
+					<td></td><td>計畫訂單接收量</td><td></td>
+					{% for r in ingre.6 %}
+						<td width=50>{{ r }}</td>
+					{% if forloop.last %}
+				</tr>
+					{% endif %}
+					{% empty %}
+					{% endfor %}
+				<tr>
+					<td></td><td>計畫訂單發出量</td><td></td>
+					{% for s in ingre.7 %}
+						<td width=50>{{ s }}</td>
+					{% if forloop.last %}
+					</tr>
+					{% endif %}
+					{% empty %}
+					{% endfor %}
+			</table>
+			</div>
+		</div>
+	</div>
+	<br>
+	{% empty %}
+	{% endfor %}
 	<br>
 
 

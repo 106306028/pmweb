@@ -146,15 +146,20 @@ def mrp(request, id):
             except:
                 data = None
             if data:
-                models.Product_MRP.objects.update(id=id, mrpStr=mrp_str)
+                data.delete()
+                save = models.Product_MRP.objects.create(id=id, mrpStr=mrp_str)
+                save.save()
             else:
-                models.Product_MRP.objects.create(id=id, mrpStr=mrp_str)
+                save = models.Product_MRP.objects.create(id=id, mrpStr=mrp_str)
+                save.save()
             
             inter_mrp_list=[]
+            ingre_mrp_list=[]
             for i in intermediate:
                 mrp = models.Product_MRP.objects.get(id=id)
                 mrp_list = mrp.mrpStr.split(',')
-                element = models.Product_element.objects.get(product=product,intermediate__id =i.id)
+                element = models.Product_element.objects.get(product=product, intermediate__id =i.id)
+                ingredient = models.Ingredient.objects.filter(intermediate__id = i.id)
                 stock2 = i.stock
                 pre_stock2, need2, receive2, send2 = mrpCalculate(stock2, mrp_list, i.TL, element.quantity)
                 inter_mrp_list.append([i.name, mrp_list, i.stock, pre_stock2, i.TL, need2, receive2, send2])
@@ -175,7 +180,30 @@ def mrp(request, id):
                 else:
                     save = models.inter_MRP.objects.create(id=i.id, mrpStr=mrp_str2)
                     save.save()
-                
+                for j in ingredient:
+                    mrp2 = models.inter_MRP.objects.get(id= i.id)
+                    mrp_list2 = mrp2.mrpStr.split(',')
+                    element = models.Intermediate_element.objects.get(intermediate = i, ingredient__id = j.id)
+                    stock3 = j.stock
+                    pre_stock3, need3, receive3, send3 = mrpCalculate(stock3, mrp_list2, j.TL, element.quantity)
+                    ingre_mrp_list.append([j.name, mrp_list2, j.stock, pre_stock3, j.TL, need3, receive3, send3])
+                    mrp_str3 = ''
+                    for index, x in enumerate(send3):
+                        if index == 7:
+                            mrp_str3 += str(x)
+                        else:
+                            mrp_str3 += str(x) + ','
+                    try:
+                        data = models.ingre_MRP.objects.get(id=j.id)
+                    except:
+                        data = None
+                    if data:
+                        data.delete()
+                        save = models.ingre_MRP.objects.create(id=j.id, mrpStr=mrp_str3)
+                        save.save()
+                    else:
+                        save = models.ingre_MRP.objects.create(id=j.id, mrpStr=mrp_str3)
+                        save.save()
     except:
         pass
         
@@ -219,6 +247,6 @@ def mrpCalculate(stock, mps_list, TL, times):
             receive.append(mps)
             send.append(mps)
     for i in range(TL):
-        send.pop(i)
+        send.pop(0)
         send.append(0)
     return pre_stock, need, receive, send
