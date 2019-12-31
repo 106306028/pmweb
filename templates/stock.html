@@ -39,14 +39,12 @@
 			<td width=50 align=center>編號</td>
 			<td width=200>半成品名稱</td>
 			<td width=100>庫存</td>
-			<td width=100>安全存量</td>
 		</tr>
 	{% endif %}
 		<tr bgcolor='{% cycle "#FFEFD5" "ccffcc" %}'>
 			<td align=center>{{ m.id }} </td>
 			<td>{{ m.name }}</td>
 			<td align=center>{{ m.stock }}</td>
-			<td align=center>{{ m.safe_stock }}</td>
 		</tr>
 	{% if forloop.last %}
 	</table>
@@ -63,8 +61,6 @@
 			<td width=50 align=center>編號</td>
 			<td width=200>原料名稱</td>
 			<td width=100>庫存</td>
-			<td width=100>安全存量</td>
-			<td width=80>EOQ</td>
 			<td width=150>供應商</td>
 		</tr>
 	{% endif %}
@@ -72,8 +68,6 @@
 			<td align=center>{{ i.id }} </td>
 			<td>{{ i.name }}</td>
 			<td align=center>{{ i.stock }}</td>
-			<td align=center>{{ i.safe_stock }}</td>
-			<td align=center>{{ i.EOQ }}</td>
 			<td align=center>{{ i.supplier }}</td>
 		</tr>
 	{% if forloop.last %}

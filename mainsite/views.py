@@ -133,8 +133,9 @@ def mrp(request, id):
             mps = models.MPS.objects.get(id=id)
             mps_list = mps.mpsStr.split(',')
             intermediate = models.Intermediate.objects.filter(product__id  = id)
+            flavor = intermediate[0].name
             stock = product.stock
-            pre_stock, need, receive, send = mrpCalculate(stock, mps_list, product.TL, 1)
+            pre_need, pre_stock, need, receive, send = mrpCalculate(stock, mps_list, product.TL, 1)
             mrp_str = ''
             for index, x in enumerate(send):
                 if index == 7:
@@ -161,8 +162,8 @@ def mrp(request, id):
                 element = models.Product_element.objects.get(product=product, intermediate__id =i.id)
                 ingredient = models.Ingredient.objects.filter(intermediate__id = i.id)
                 stock2 = i.stock
-                pre_stock2, need2, receive2, send2 = mrpCalculate(stock2, mrp_list, i.TL, element.quantity)
-                inter_mrp_list.append([i.name, mrp_list, i.stock, pre_stock2, i.TL, need2, receive2, send2])
+                pre_need2, pre_stock2, need2, receive2, send2 = mrpCalculate(stock2, mrp_list, i.TL, element.quantity)
+                inter_mrp_list.append([i.name, pre_need2, i.stock, pre_stock2, i.TL, need2, receive2, send2])
                 mrp_str2 = ''
                 for index, x in enumerate(send2):
                     if index == 7:
@@ -185,8 +186,8 @@ def mrp(request, id):
                     mrp_list2 = mrp2.mrpStr.split(',')
                     element = models.Intermediate_element.objects.get(intermediate = i, ingredient__id = j.id)
                     stock3 = j.stock
-                    pre_stock3, need3, receive3, send3 = mrpCalculate(stock3, mrp_list2, j.TL, element.quantity)
-                    ingre_mrp_list.append([j.name, mrp_list2, j.stock, pre_stock3, j.TL, need3, receive3, send3])
+                    pre_need3, pre_stock3, need3, receive3, send3 = mrpCalculate(stock3, mrp_list2, j.TL, element.quantity)
+                    ingre_mrp_list.append([j.name, pre_need3, j.stock, pre_stock3, j.TL, need3, receive3, send3])
                     mrp_str3 = ''
                     for index, x in enumerate(send3):
                         if index == 7:
@@ -211,12 +212,14 @@ def mrp(request, id):
     return HttpResponse(html)
 
 def mrpCalculate(stock, mps_list, TL, times):
+    pre_need = []
     pre_stock = []
     need = []
     receive = []
     send = []
     for i in range(8):
         mps = int(mps_list[i]) * times
+        pre_need.append(mps)
         if mps == 0 and stock != 0:
             pre_stock.append(stock)
             need.append(0)
@@ -249,4 +252,4 @@ def mrpCalculate(stock, mps_list, TL, times):
     for i in range(TL):
         send.pop(0)
         send.append(0)
-    return pre_stock, need, receive, send
+    return pre_need, pre_stock, need, receive, send
