@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.template.loader import get_template
 from django.http import HttpResponse
 from mainsite import models
+import time
+import datetime
 # Create your views here.
 def index(request):
     template = get_template('index.html')
@@ -211,6 +213,25 @@ def mrp(request, id):
     html = template.render(locals())
     return HttpResponse(html)
 
+def order(request, id):
+    template = get_template('order.html')
+    try:
+        if id:
+            product = models.Product.objects.get(id=id)
+            ingredient = models.Ingredient.objects.all()
+            order_detail = []
+            for i in ingredient:
+                detail = ingre_order(i)
+                order_detail.append(detail)
+            
+    
+    except:
+        pass
+    
+    html = template.render(locals())
+    return HttpResponse(html)
+
+
 def mrpCalculate(stock, mps_list, TL, times):
     pre_need = []
     pre_stock = []
@@ -253,3 +274,55 @@ def mrpCalculate(stock, mps_list, TL, times):
         send.pop(0)
         send.append(0)
     return pre_need, pre_stock, need, receive, send
+    
+def ingre_order(ingredient):
+    order_list = []
+    if ingredient.id == 3:
+        ingre_mrp = models.ingre_MRP.objects.get(id=ingredient.id)
+        ingre_mrp = ingre_mrp.mrpStr.split(',')
+        row = []
+        for index, i in enumerate(ingre_mrp):
+            time = datetime.datetime.now()
+            if len(row) == 0:
+                row.append(ingredient.id)
+                row.append(ingredient.name)
+            i = float(i)*2
+            if i == 0:
+                continue
+            else:
+                row.append(i)
+                date = datetime.timedelta(days=index*7)
+                n_date = time+date
+                row.append(n_date.strftime('%Y-%m-%d'))
+                row.append(ingredient.supplier.name)
+                row.append(ingredient.supplier.tel)
+                order_list.append(row)
+                row = []
+                row.append(None)
+                row.append(None)
+    
+    else:
+        ingre_mrp = models.ingre_MRP.objects.get(id=ingredient.id)
+        ingre_mrp = ingre_mrp.mrpStr.split(',')
+        row = []
+        for index, i in enumerate(ingre_mrp):
+            time = datetime.datetime.now()
+            if len(row) == 0:
+                row.append(ingredient.id)
+                row.append(ingredient.name)
+            i = float(i)
+            if i == 0:
+                continue
+            else:
+                row.append(i)
+                date = datetime.timedelta(days=index*7)
+                n_date = time+date
+                row.append(n_date.strftime('%Y-%m-%d'))
+                row.append(ingredient.supplier.name)
+                row.append(ingredient.supplier.tel)
+                order_list.append(row)
+                row = []
+                row.append(None)
+                row.append(None)
+        
+    return order_list

@@ -25,5 +25,6 @@ urlpatterns = [
     path('product/mps', views.mps),
     path('product/mps/<int:id>', views.mpsSearch),
     path('product/mps/mrp/<int:id>', views.mrp),
+    path('product/order/<int:id>', views.order),
     path('admin/', admin.site.urls),
 ]
