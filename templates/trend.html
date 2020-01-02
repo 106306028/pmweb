@@ -1,0 +1,43 @@
+<!-- trend.html -->
+{% extends "base.html" %}
+{% load static %}
+{% block title %}來一客產銷系統{% endblock %}
+{% block content %}
+<div class='container'>
+	<div class='row'>
+	<b><font color="#008080" size="5pt">時間分析</font></b>
+	<hr style="border:2px solid #00d3a1;" />
+	<br>
+	</div>
+	<div class='row'>
+	<font color="#008080" size="4pt">日計算:</font>
+	</div>
+	<br>
+	<div class='row'>
+	<img src="{% static "images/trend_ccc.jpg " %}" width=350 height=200>
+	</div>
+	<br>
+	<div class='row'>
+	<font color="#008080" size="4pt">daily amount:</font>
+	</div>
+	<div class='row'>
+	<img src="{% static "images/trend_amount.jpg " %}" width=350 height=200>
+	</div>
+	<br>
+	<div class='row'>
+	<font color="#008080" size="4pt">user count:</font>
+	</div>
+	<div class='row'>
+	<img src="{% static "images/trend_count.jpg " %}" width=350 height=200>
+	</div>
+	<br>
+	<br>
+	<br>
+
+
+
+
+
+</div>
+
+{% endblock %}

@@ -104,8 +104,30 @@ class ingre_MRP(models.Model):
     
     def __str__(self):
         return self.mrpStr
+        
+class user_payment(models.Model):
+    UID = models.IntegerField()
+    date = models.DateTimeField(max_length=20)
+    amount = models.IntegerField()
+    YEAR = models.IntegerField()
+    MONTH = models.IntegerField()
+    DAY = models.IntegerField()
     
+    def __str__(self):
+        return 'UID:{0}.Payment:{1}'.format(self.id, self.payment)
     
+class user_payment_item(models.Model):
+    UID = models.IntegerField()
+    date = models.DateTimeField(max_length=20)
+    amount = models.IntegerField()
+    YEAR = models.IntegerField()
+    MONTH = models.IntegerField()
+    DAY = models.IntegerField()
+    item = models.IntegerField()
+    num = models.FloatField()
+    
+    def __str__(self):
+        return 'UID:{0}.item:{1},number:{2}'.format(self.id, self.item, self.num)
     
     
     

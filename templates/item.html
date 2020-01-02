@@ -1,0 +1,36 @@
+<!-- item.html -->
+{% extends "base.html" %}
+{% load static %}
+{% block title %}來一客產銷系統{% endblock %}
+{% block content %}
+<div class='container'>
+	<div class='row'>
+	<b><font color="#008080" size="5pt">品項分析</font></b>
+	<hr style="border:2px solid #00d3a1;" />
+	<font color="#008080" size="4pt">顧客品項統計:</font>
+	</div>
+	<div class='row'>
+	<img src="{% static "images/ite.jpg " %}" width=700 height=200>
+	</div>
+	<br>
+	<div class='row'>
+	<font color="#008080" size="4pt">圖表:</font>
+	</div>
+	<div class='row'>
+	<img src="{% static "images/item_result.jpg " %}" width=400 height=250>
+	</div>
+	<br>
+	<div class='row'>
+	<font color="#008080" size="4pt">Apriori:</font>
+	</div>
+	<div class='row'>
+	<img src="{% static "images/apriori.jpg " %}" width=500 height=500>
+	</div>
+	<br>
+	<br>
+
+
+
+</div>
+
+{% endblock %}

@@ -4,6 +4,9 @@ from django.http import HttpResponse
 from mainsite import models
 import time
 import datetime
+import pandas as pd # for dataframes
+import datetime as dt
+import numpy as np
 # Create your views here.
 def index(request):
     template = get_template('index.html')
@@ -13,6 +16,29 @@ def index(request):
 
 def market(request):
     template = get_template('market.html')
+    html = template.render()
+    return HttpResponse(html)
+    
+def rfm(request):
+    template = get_template('rfm.html')
+    user = models.user_payment_item.objects.all()[:100]
+    html = template.render(locals())
+    return HttpResponse(html)
+    
+def result(request):
+    template = get_template('result.html')
+    user = models.user_payment_item.objects.all()[:100]
+    html = template.render(locals())
+    return HttpResponse(html)
+    
+def item(request):
+    template = get_template('item.html')  
+
+    html = template.render()
+    return HttpResponse(html)
+    
+def trend(request):
+    template = get_template('trend.html')
     html = template.render()
     return HttpResponse(html)
     

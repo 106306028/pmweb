@@ -1,0 +1,49 @@
+<!-- rfm.html -->
+{% extends "base.html" %}
+{% load static %}
+{% block title %}來一客產銷系統{% endblock %}
+{% block content %}
+<div class='container'>
+	<div class='row'>
+		<b><font color="#008080" size="5pt">RFM分析</font></b>
+		<hr style="border:2px solid #00d3a1;" />
+		<font color="#008080" size="4pt">現有顧客資料:</font>
+	</div>
+	<br>
+	<div class='row'>
+		<div class='col-md-6'>
+		{% for data in user %}
+		{% if forloop.first %}
+		<table>
+			<tr bgcolor='#ffffff'>
+				<td width=50 align=center>UID</td>
+				<td width=200 align=left>日期 時間</td>
+				<td width=100>金額</td>
+			</tr>
+		{% endif %}
+			<tr>
+				<td>{{ data.UID }}</td>
+				<td align=left>{{ data.date }}</td>
+				<td>{{ data.amount }}</td>
+			</tr>
+		{% if forloop.last %}
+		</table>
+		{% endif %}
+		{% empty %}
+		{% endfor %}
+		</div>
+		<div class='col-md-6'>
+			<button type="button" onclick="location.href='/market/rfm/result'">
+				分析結果
+			</button> 
+		</div>
+	</div>
+	<br><br>
+
+
+
+
+
+</div>
+
+{% endblock %}
