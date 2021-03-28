@@ -14,7 +14,7 @@ Marketing management include RFM Analysis、Category Analysis、Time Analysis fu
 ## Order Form Generate
 ![](https://github.com/106306028/pmweb/blob/master/demo/order.jpg)
 ## RFM Analysis
-![](https://github.com/106306028/pmweb/blob/master/demo/RFM%20anaylsis.jpg)
+![](https://github.com/106306028/pmweb/blob/master/demo/RFM%20analysis.jpg)
 ## Category Analysis
 ![](https://github.com/106306028/pmweb/blob/master/demo/category%20analysis.jpg)
 ## Time Analysis
