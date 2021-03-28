@@ -25,7 +25,7 @@ SECRET_KEY = 'wd@rccs!^*m&nye-yy2_fc(wc&@q9=at0vjrp&j((t^rkjrfts'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.56.1','127.0.0.1']
+ALLOWED_HOSTS = ['192.168.56.1','127.0.0.1', '*']
 
 
 # Application definition
